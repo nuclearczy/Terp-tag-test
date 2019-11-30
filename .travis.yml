@@ -22,6 +22,8 @@ env:
     - ROSINSTALL_FILE=$CI_SOURCE_PATH/dependencies.rosinstall
     - CATKIN_OPTIONS=$CI_SOURCE_PATH/catkin.options
     - ROS_PARALLEL_JOBS='-j8 -l6'
+    - OPENCV_VERSION='3.4.8'       # Version to be installed
+    - OPENCV_CONTRIB='YES'          # Install OpenCV's extra modules (YES/NO)
     # Set the python path manually to include /usr/-/python2.7/dist-packages
     # as this is where apt-get installs python packages.
     # - PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
@@ -45,15 +47,30 @@ before_install:
 
 
   # Install OpenCV-contrib 3.4.8
-  - wget https://github.com/opencv/opencv_contrib/archive/3.4.8.zip -O opencv_contrib-3.4.8.zip
-  - sudo apt-get install unzip
-  - unzip opencv_contrib-3.4.8.zip
-  - cd  opencv_contrib-3.4.8
-  - mkdir build
-  - cd build
-  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -
-  - DOPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-3.4.8/modules -
-  - DOPENCV_ENABLE_NONFREE=True ..
+  # Java:
+  - sudo apt-get install -y ant default-jdk
+
+  # Documentation and other:
+  - sudo apt-get install -y doxygen unzip wget
+
+
+  # 3. INSTALL THE LIBRARY
+
+  - wget https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.zip
+  - unzip ${OPENCV_VERSION}.zip && rm ${OPENCV_VERSION}.zip
+  - mv opencv-${OPENCV_VERSION} OpenCV
+
+  - wget https://github.com/opencv/opencv_contrib/archive/${OPENCV_VERSION}.zip
+  - unzip ${OPENCV_VERSION}.zip && rm ${OPENCV_VERSION}.zip
+  - mv opencv_contrib-${OPENCV_VERSION} opencv_contrib
+  - mv opencv_contrib OpenCV
+
+
+  - cd OpenCV && mkdir build && cd build
+
+  - cmake -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON \
+          -DWITH_XINE=ON -DENABLE_PRECOMPILED_HEADERS=OFF \
+          -DOPENCV_EXTRA_MODULES_PATH=../opencv_contrib/modules ..
   - make -j4
   - sudo make install
   - sudo ldconfig
