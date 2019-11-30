@@ -43,6 +43,22 @@ before_install:
   - sudo rosdep init
   - rosdep update --include-eol-distros  # Support EOL distros.
 
+
+  # Install OpenCV-contrib 3.4.8
+  - wget https://github.com/opencv/opencv_contrib/archive/3.4.8.zip -O opencv_contrib-3.4.8.zip
+  - sudo apt-get install unzip
+  - unzip opencv_contrib-3.4.8.zip
+  - cd  opencv_contrib-3.4.8
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -
+  - DOPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-3.4.8/modules -
+  - DOPENCV_ENABLE_NONFREE=True ..
+  - make -j4
+  - sudo make install
+  - sudo ldconfig
+
+
 # Create a catkin workspace with the package under integration.
 install:
   - mkdir -p ~/catkin_ws/src
