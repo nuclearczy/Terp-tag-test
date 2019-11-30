@@ -1,6 +1,6 @@
 # We need a decent ubuntu dist
 sudo: required
-dist: xenial
+dist: bionic
 
 cache:
   - apt
@@ -9,9 +9,9 @@ cache:
 language: cpp
 matrix:
   include:
-  - name: "Xenial kinetic"
-    dist: xenial
-    env: ROS_DISTRO=kinetic
+  - name: "Bionic melodic"
+    dist: bionic
+    env: ROS_DISTRO=melodic
 
 # Configuration variables. All variables are global now, but this can be used to
 # trigger a build matrix for different ROS distributions if desired.
@@ -24,7 +24,7 @@ env:
     - ROS_PARALLEL_JOBS='-j8 -l6'
     # Set the python path manually to include /usr/-/python2.7/dist-packages
     # as this is where apt-get installs python packages.
-    - PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
+    # - PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
 
 ################################################################################
 
