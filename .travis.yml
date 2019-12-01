@@ -46,6 +46,7 @@ before_install:
 
 
   # Install OpenCV-contrib 3.4.8
+
   # Java:
   - sudo apt-get install -y ant default-jdk
 
@@ -59,9 +60,6 @@ before_install:
   - unzip ${OPENCV_VERSION}.zip && rm ${OPENCV_VERSION}.zip
   - mv opencv-${OPENCV_VERSION} OpenCV
 
-
-
-
   - cd OpenCV && mkdir build && cd build
 
   - cmake -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON \
@@ -70,6 +68,10 @@ before_install:
   - make -j4
   - sudo make install
   - sudo ldconfig
+  - pwd
+  - echo $(ls)
+  - cd OpenCV
+  - NEW_OPENCV_PATH=$(pwd)
 
 
 # Create a catkin workspace with the package under integration.
