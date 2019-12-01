@@ -68,11 +68,6 @@ before_install:
   - make -j4
   - sudo make install
   - sudo ldconfig
-  - pwd
-  - echo $(ls)
-  - cd OpenCV
-  - NEW_OPENCV_PATH=$(pwd)
-
 
 # Create a catkin workspace with the package under integration.
 install:
