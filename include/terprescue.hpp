@@ -67,19 +67,19 @@ class TerpRescue {
     Localizer tagLocalizer;  // created instance of localizer to detect tag's location
 
     // lidar subscriber
-    ros::Subscriber lidarSubscriber = nh.subscribe<sensor_msgs::LaserScan>("/scan_filtered", 
+    ros::Subscriber lidarSubscriber = nh.subscribe<sensor_msgs::LaserScan>("/scan_filtered",
         1, &TerpRescue::lidarCallback, this);
 
     // camera subscriber
-    ros::Subscriber cameraSubscriber = nh.subscribe<sensor_msgs::Image>("/camera/depth/image_raw", 
+    ros::Subscriber cameraSubscriber = nh.subscribe<sensor_msgs::Image>("/camera/depth/image_raw",
         1, &TerpRescue::cameraCallback, this);
 
     // odom subscriber
-    ros::Subscriber odomSubscriber = nh.subscribe<nav_msgs::Odometry>("/camera/depth/image_raw", 
+    ros::Subscriber odomSubscriber = nh.subscribe<nav_msgs::Odometry>("/camera/depth/image_raw",
         1, &TerpRescue::odomCallback, this);
 
     // map subscriber
-    ros::Subscriber mapSubscriber = nh.subscribe<nav_msgs::OccupancyGrid>("/camera/depth/image_raw", 
+    ros::Subscriber mapSubscriber = nh.subscribe<nav_msgs::OccupancyGrid>("/camera/depth/image_raw",
         1, &TerpRescue::mapCallback, this);
 
     // publisher to publish map

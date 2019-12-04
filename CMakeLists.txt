@@ -4,10 +4,6 @@ project(terprescue)
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
 
-set(OpenCV_PATH "/usr/local")
-set(OpenCV_INCLUDE_DIRS "${OpenCV_PATH}/include")
-set(OpenCV_LIBS "${OpenCV_PATH}/lib")
-
 find_package(
     catkin REQUIRED COMPONENTS
     roscpp
@@ -16,7 +12,7 @@ find_package(
     tf
     cv_bridge
 )
-find_package(OpenCV 3.4.8 EXACT REQUIRED PATHS ${OpenCV_PATH})
+find_package(OpenCV REQUIRED)
 
 # Generate added messages and services with any dependencies listed here
 generate_messages(
@@ -37,8 +33,8 @@ include_directories(
 
 message("\n\nOPENCV VERSION:\n" ${OpenCV_INCLUDE_DIRS} "\n!!!!\n\n")
 
-add_executable(main src/main.cpp src/localizer.cpp src/terprescue.cpp)
-target_link_libraries(main ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+add_executable(terprescue src/main.cpp src/localizer.cpp src/terprescue.cpp)
+target_link_libraries(terprescue ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
 if(CATKIN_ENABLE_TESTING)
     find_package(rostest REQUIRED)
