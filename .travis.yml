@@ -109,7 +109,7 @@ script:
   - export CMAKE_PREFIX_PATH=/usr/local:$CMAKE_PREFIX_PATH
   - export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
   - catkin_make #$( [ -f $CATKIN_OPTIONS ] && cat $CATKIN_OPTIONS )
-  - rosrun terprescue terprescue
+  - rosrun Terp-tag-test terprescue
   # Run the tests, ensuring the path is set correctly.
   - source devel/setup.bash
   - catkin_make run_tests && catkin_test_results
